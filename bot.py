@@ -1,12 +1,14 @@
 import telebot
-import config
 import requests
+import os
 
+from dotenv import load_dotenv
+from telebot.types import Message
 
-from telebot.types import ReplyKeyboardMarkup, KeyboardButton, Message
+load_dotenv()
 
-
-bot = telebot.TeleBot(config.bot_token)
+token = os.getenv('BOTTOKEN')
+bot = telebot.TeleBot(token)
 
 
 @bot.message_handler(commands=['start'])
@@ -24,7 +26,7 @@ def hello(message):
     # город который ввел пользователь
     input_town = message.text
 
-    payload = {'access_key': config.api_access_key_weather, 'query': {input_town}}
+    payload = {'access_key': os.getenv('APIKEY'), 'query': {input_town}}
     info = requests.get('http://api.weatherstack.com/current', params=payload).json()
 
     try:
