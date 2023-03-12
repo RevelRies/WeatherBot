@@ -7,8 +7,7 @@ from telebot.types import Message
 
 load_dotenv()
 
-token = os.getenv('BOTTOKEN')
-bot = telebot.TeleBot(token)
+bot = telebot.TeleBot(os.getenv('BOTTOKEN'))
 
 
 @bot.message_handler(commands=['start'])
